@@ -125,114 +125,85 @@
             </div>
         </div>
     </section>
-    <section class="product-details">
-        <div class="container">
-            <div class="row product-tuan">
-                <div class="col-lg-6 col-xl-6">
-                    <div class="product-details__img">
-                        <div class="sx-box sx-product-gallery on-show-slider">
+    <div class="container">
+        <div class="row product-tuan">
+            <!-- Cột trái -->
+            <div class="col-lg-3 col-xl-3">
+                <div id="menu-fetail" class="side-detail">
 
-                            <div id="sync1" class="owl-carousel owl-theme owl-btn-vertical-center m-b5">
-                                @foreach ($img as $item)
-                                    <div class="item">
-                                        <div class="mfp-gallery">
-                                            <div class="sx-box">
-                                                <div class="sx-thum-bx sx-img-overlay1 popup-gallery tuannimg">
-                                                    <a href="{{ $item }}"><img class="imgbig"
-                                                            src="{{ $item }}" alt=""></a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div> <br>
-                            {{-- <div id="sync2" class="owl-carousel owl-theme">
-							@foreach ($img as $item)
-							<div class="item">
-								<div class="sx-media">
-									<img src="{{$item}}" alt="">
-								</div>
-							</div>
-							@endforeach
-						</div> --}}
+               
+                <!-- Menu danh mục sản phẩm -->
+                @include('layouts.menu.menuleft')
+                <!-- Sản phẩm liên quan (Có thể bạn thích) -->
+             
+                 </div>
+            </div>
+            <!-- Cột phải: Chi tiết sản phẩm -->
+            <div class="col-lg-9 col-xl-9">
+                <div class="row">
+                    <!-- Ảnh sản phẩm -->
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="product-image mb-4">
+                            <a href="{{ $img[0] }}" id="mainGallery">
+                                <img id="mainProductImg" src="{{ $img[0] }}" alt="{{ $product->name }}"
+                                    class="img-fluid rounded" style="width:100%;object-fit:cover;cursor:zoom-in;">
+                            </a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-6">
-                    <div class="product-details__top">
-                        <h3 class="product-details__title" style="color: white">{{ $product->name }} </h3>
-                        @if ($product->price > 0 && $product->discount > 0 && $product->discount < $product->price)
-                            <div class="product-single-price tuan-box">
-                                <span class="p-single-old-price ">{{ number_format($product->price) }}₫</span>
-                                <span class="p-single-new-price ">{{ number_format($product->discount) }}₫</span>
-                            </div>
-                        @elseif ($product->price == 0 && $product->discount == 0)
-                            <div class="product-single-price">
-                                <span class="p-single-new-price">Liên Hệ</span>
-                            </div>
-                        @else
-                            <div class="product-single-price">
-                                <span class="p-single-new-price ">{{ number_format($product->price) }}₫</span>
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="product-details__buttons">
-                        <div class="product-details__buttons-1">
-                            <a href="{{ $setting->phone1 }}" class="thm-btn">Liên hệ đặt hàng</a>
+                        <!-- Modal phóng to ảnh -->
+                        <div id="imgModal"
+                            style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;">
+                            <span id="closeImgModal"
+                                style="position:absolute;top:30px;right:40px;font-size:2.5rem;color:#fff;cursor:pointer;z-index:10001;">&times;</span>
+                            <img id="imgModalContent" src=""
+                                style="max-width:99vw !important;max-height:98vh !important;width:auto;height:auto;box-shadow:0 0 20px #000;border-radius:0;background:#fff;display:block;margin:auto;">
                         </div>
-
-                    </div>
-                    <br>
-                    <div class="sx-box sx-product-gallery on-show-slider">
-                        <div id="sync2" class="owl-carousel owl-theme">
-                            @foreach ($img as $item)
-                                <div class="item">
-                                    <div class="sx-media tuannimg">
-                                        <img class="imagedetail" src="{{ $item }}" alt="">
-                                    </div>
-                                </div>
+                        <div id="lightgallery" class="product-thumbnails d-flex gap-2 mt-2">
+                            @foreach ($img as $thumb)
+                                <img src="{{ $thumb }}" alt="thumb" width="60" height="60"
+                                    style="object-fit:cover; border-radius:6px; border:1.5px solid #eee; cursor:pointer; transition: border 0.2s;">
                             @endforeach
                         </div>
                     </div>
-                    {{-- <div class="product-details__buttons">
-					<div class="product-details__buttons-1">
-						<a href="tel:{{$setting->phone1}}" class="thm-btn">HotLine</a>
-					</div>
-				</div> --}}
-
-                    {{-- <div class="product-details__social">
-					<div class="title">
-						<h3>Share with Friends</h3>
-					</div>
-					<div class="product-details__social-link">
-						<a href="#"><span class="fab fa-twitter"></span></a>
-						<a href="#"><span class="fab fa-facebook"></span></a>
-						<a href="#"><span class="fab fa-pinterest-p"></span></a>
-						<a href="#"><span class="fab fa-instagram"></span></a>
-					</div>
-				</div> --}}
+                    <!-- Thông tin sản phẩm -->
+                    <div class="col-lg-6 col-xl-6">
+                        <h1 style="font-size:1.8rem;font-weight:700;">{{ $product->name }}</h1>
+                        <div class="mb-3" style="font-size:1.2rem;font-weight:600;">
+                            @if ($product->discount && $product->discount > 0 && $product->discount < $product->price)
+                                <span style="color:#888;text-decoration:line-through;margin-right:10px;">
+                                    {{ number_format($product->price, 0, ',', '.') }}đ
+                                </span>
+                                <span style="color:#e74c3c;">
+                                    {{ number_format($product->discount, 0, ',', '.') }}đ
+                                </span>
+                            @else
+                                <span style="color:#e74c3c;">
+                                    {{ number_format($product->price, 0, ',', '.') }}đ
+                                </span>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            {!! languageName($product->description) !!}
+                        </div>
+                        <a href="tel:{{ $setting->phone1 ?? '0123456789' }}" class="btn btn-contact-glass">
+                            <i class="fa fa-phone"></i> Liên hệ đặt hàng
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <section class="product-description">
-        <div class="container">
-            <h3 class="product-description__title">Thông tin sản phẩm</h3>
-            {!! languageName($product->content) !!}
-        </div>
-    </section>
-    <section class="sptuongtu">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2 class="section-title__title">Sản phẩm tương tự</h2>
-                <div class="section-title__line"></div>
-            </div>
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="productlq owl-carousel owl-theme thm-owl__carousel"
-                        data-owl-options='{
+                <!-- Mô tả chi tiết sản phẩm -->
+                <div class="product-description mt-5">
+                    <h3>Mô tả sản phẩm</h3>
+                    {!! languageName($product->content) !!}
+                </div>
+                <section class="sptuongtu">
+                    <div class="container">
+                        <div class="section-title text-center">
+                            <h2 class="section-title__title">Sản phẩm tương tự</h2>
+                            <div class="section-title__line"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="productlq owl-carousel owl-theme thm-owl__carousel"
+                                    data-owl-options='{
 					"loop": false,
 					"autoplay": true,
 					"margin": 30,
@@ -252,22 +223,90 @@
 							"items": 3
 						},
 						"1200": {
-							"items": 5
+							"items": 4
 						}
 					}
 				}'>
-                        <!--Blog One Start-->
-                        @foreach ($productlq as $item)
-                            @php
-                                $imgprohome = json_decode($item->images);
-                            @endphp
-                          @include('layouts.product.item', ['item' => $item, 'imgnb' => $imgprohome])
-                        @endforeach
+                                    <!--Blog One Start-->
+                                    @foreach ($productlq as $item)
+                                        @php
+                                            $imgprohome = json_decode($item->images);
+                                        @endphp
+                                        @include('layouts.product.item', [
+                                            'item' => $item,
+                                            'imgnb' => $imgprohome,
+                                        ])
+                                    @endforeach
 
 
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
-    </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // lightGallery cho ảnh lớn
+            lightGallery(document.getElementById('mainGallery'), {
+                selector: 'this',
+                zoom: true,
+                download: false,
+                actualSize: false
+            });
+
+            // Đổi ảnh lớn khi click thumb
+            const mainImg = document.getElementById('mainProductImg');
+            const thumbs = document.querySelectorAll('.product-thumbnails img');
+            thumbs.forEach(function(thumb) {
+                thumb.addEventListener('click', function() {
+                    mainImg.src = this.src;
+                    // Xóa active cũ
+                    thumbs.forEach(t => t.classList.remove('active-thumb'));
+                    // Thêm active cho thumb đang chọn
+                    this.classList.add('active-thumb');
+                });
+            });
+        });
+    </script>
+    <style>
+        .active-thumb {
+            border: 2px solid #e74c3c !important;
+            box-shadow: 0 0 4px #e74c3c55;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Khởi tạo sticky sidebar cho menu-fetail
+        new StickySidebar('#menu-fetail', {
+            topSpacing: 80,
+            bottomSpacing: 0,
+            containerSelector: '.row.product-tuan',
+            innerWrapperSelector: '.side-detail, .sidebar, .sidebar__inner '
+        });
+
+        // lightGallery cho ảnh lớn
+        lightGallery(document.getElementById('mainGallery'), {
+            selector: 'this',
+            zoom: true,
+            download: false,
+            actualSize: false
+        });
+
+        // Đổi ảnh lớn khi click thumb
+        const mainImg = document.getElementById('mainProductImg');
+        const thumbs = document.querySelectorAll('.product-thumbnails img');
+        thumbs.forEach(function(thumb) {
+            thumb.addEventListener('click', function() {
+                mainImg.src = this.src;
+                thumbs.forEach(t => t.classList.remove('active-thumb'));
+                this.classList.add('active-thumb');
+            });
+        });
+    });
+</script>
 @endsection

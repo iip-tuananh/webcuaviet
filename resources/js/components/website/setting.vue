@@ -77,17 +77,17 @@
                     v-model="objData.email"
                   />
                 </div>
-                <!-- <div class="form-group">
-                  <label>Facebook</label>
+                <div class="form-group">
+                  <label>Messenger</label>
                   <vs-input
                     type="text"
                     size="default"
                     class="w-100"
                     v-model="objData.facebook"
                   />
-                </div> -->
-                <!-- <div class="form-group">
-                  <label>Youtube</label>
+                </div>
+                <div class="form-group">
+                  <label>ZALO</label>
                   <vs-input
                     type="text"
                     size="default"
@@ -95,7 +95,7 @@
                     v-model="objData.google"
                   />
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label>Tiktok</label>
                   <vs-input
                     type="text"

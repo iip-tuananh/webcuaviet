@@ -57,7 +57,7 @@
         <div class="container" id="main-container">
             <div class="row">
                 <div class="col-xl-3 col-lg-3">
-                    <div class="sidebar" id="sidebar">
+                    <div class="sidebar " id="sidebar">
                         <div class="sidebar__inner">
                             <div class="product__sidebar">
                                 <div class="product__sidebar-title">

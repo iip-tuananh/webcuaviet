@@ -7,6 +7,33 @@
                         <img src="{{ $setting->logo }}" alt="" class="dark-logo">
                     </a>
                 </div>
+                    <form action="{{ route('search_result') }}" method="POST" class="header-search-form"
+                            style="display:inline-block; margin-left:20px;">
+                            @csrf
+                            <input type="text" name="keyword" class="header-search-input input-group-field auto-search form-control" placeholder="Tìm kiếm..."
+                                style="padding:5px 10px; border-radius:4px; border:1px solid #ccc;"  id="ajax-search-input" autocomplete="off">
+
+
+
+                            <button type="submit" class="header-search-btn"
+                                style="padding:5px 10px; border:none; background:#333; color:#fff; border-radius:4px;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                          <div class="ajax-search-result-container" style="display: none;">
+                        <div class="search-results-wrapper">
+                            <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
+                        </div>
+                        <div class="search-loading" style="display: none;">
+                            <div class="loader-ellips">
+                                <span class="loader-ellips__dot"></span>
+                                <span class="loader-ellips__dot"></span>
+                                <span class="loader-ellips__dot"></span>
+                                <span class="loader-ellips__dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-overlay"></div>
                 <div class="main-header__top-right">
                     <div class="main-header__top-right-content">
                         <div class="main-header__top-address-box">
@@ -29,19 +56,11 @@
                                         <h5><a href="mailto:{{ $setting->email }}">{{ $setting->email }}</a></h5>
                                     </div>
                                 </li>
-                                {{-- 
-                        <li>
-                           <div class="icon icon--location">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="content">
-                              <p>Địa chỉ</p>
-                              <h5>{{$setting->address1}}</h5>
-                           </div>
-                        </li>
-                        --}}
                             </ul>
                         </div>
+                        <!-- Ô tìm kiếm bắt đầu -->
+                    
+                        <!-- Ô tìm kiếm kết thúc -->
                     </div>
                 </div>
             </div>

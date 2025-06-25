@@ -37,13 +37,13 @@
          <div class="container">
              <div class="row">
                  <div class="col-xl-12">
-                     <div class="main-slider-three__content" style="height: 200px !important;">
+                     <div class="main-slider-three__content" >
                          <p class="main-slider-three__sub-title" style="color: white"></p>
                          <h2 class="main-slider-three__title">{!!$item->title!!}</h2>
                          <p class="main-slider-des">{{$item->description}}</p>
-                         <div class="main-slider-three__btn-box">
+                         {{-- <div class="main-slider-three__btn-box">
                              <a href="tel:{{$setting->phone1}}" class="main-slider-three__btn thm-btn">Liên hệ</a>
-                         </div>
+                         </div> --}}
                      </div>
                  </div>
              </div>

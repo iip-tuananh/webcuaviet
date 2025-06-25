@@ -35,8 +35,12 @@ Kết quả tìm kiếm
 			 <h2 class="h3 mb-3 t-search">Có {{count($product)}} kết quả tìm kiếm với từ khóa "{{$keyword}}"</h2>
 			 <div class="row slider-items">
 				@foreach ($product as $item)
+				@php
+					// dd($item->images);
+					$imgnb = json_decode($item->images, true);
+				@endphp
 				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 col-6 product-grid-item-lm mb-3">
-					@include('layouts.product.item',['pro'=>$item])
+					@include('layouts.product.item', ['imgnb' => $imgnb])
 				 </div>
 				@endforeach
 				

@@ -260,13 +260,32 @@ class ProductController extends Controller
 
         return view('product.detail',$data);
     }
-    public function autosearchcomplete(Request $request)
+  public function autosearchcomplete(Request $request)
     {
-        $data = Product::where("name","LIKE",'%'.$request->keyword.'%')->select('id','category','name','discount','price','images','slug','cate_slug','type_slug','description','status_variant')->orderBy('id','DESC')
-                  ->limit(8)->get();
-        $view = view("layouts.product.search_render",compact('data'))->render();
+        $keyword = $request->keyword;
+        $products = Product::where('name', 'LIKE', '%' . $keyword . '%')
+            ->where('status', 1)
+            ->take(5)
+            ->get()
+            ->map(function ($product) {
+                return [
+                    'name' => $product->name,
+                    'url' => route('detailProduct', [
+                        'cate' => $product->cate_slug,
+                        'type' => $product->type_slug ? $product->type_slug : 'loai',
+                        'id' => $product->slug
+                    ]),
+                    'image' => !empty($product->images) ? json_decode($product->images)[0] : '',
+                    'price' => $product->price,
+                    'discount' => $product->discount
+                ];
+            });
+        $total = Product::where('name', 'LIKE', '%' . $keyword . '%')
+            ->where('status', 1)
+            ->count();
         return response()->json([
-            'html'=>$view
+            'products' => $products,
+            'total' => $total
         ]);
     }
     public function compare(Request $request)
@@ -361,7 +380,7 @@ class ProductController extends Controller
     }
     public function searchResult(Request $request)
     {
-        $keyword = $request->keywordsearch;
+        $keyword = $request->keyword;
          $data['product'] = Product::where('name', 'LIKE', '%'.$keyword.'%')->where('status',1)
          ->paginate(18);
          $data['keyword'] = $keyword;
