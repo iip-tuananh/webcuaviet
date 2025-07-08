@@ -230,6 +230,17 @@ export default {
             }
           ],
         },
+         {
+          icon: "mdi mdi-shopping-music menu-icon",
+          name: "Video dự án",
+          route_name: "",
+          sub: [
+            {
+              name: "Danh sách",
+              path: "/video",
+            }
+          ],
+        },
         // {
         //   icon: "mdi mdi-newspaper menu-icon",
         //   name: "Quản lý Review",

@@ -15,7 +15,7 @@
                 v-model="objData.name"
               />
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>Nội dung</label>
                 <TinyMce
                   v-model="objData.content[0].content"
@@ -27,7 +27,7 @@
                         <TinyMce v-if="index != 0" v-model="objData.content[index].content" />
                     </div>
                 </div>
-              </div>
+              </div> -->
               <!-- <div class="form-group">
                 <label>Mô tả ngắn</label>
                 <vs-textarea v-model="objData.description[0].content" />
@@ -51,7 +51,7 @@
                   />
                 </vs-select>
               </div> -->
-             <div class="form-group">
+             <!-- <div class="form-group">
                 <label>Link video ( Youtube )</label>
                 <vs-input
                   type="text"
@@ -60,7 +60,7 @@
                   class="w-100"
                   v-model="objData.location"
                 />
-              </div>
+              </div> -->
               <!-- <div class="form-group">
                 <label>Quy mô dự án</label>
                 <vs-input
@@ -201,7 +201,7 @@ export default {
     addProjects() {
       this.errors = [];
       if(this.objData.name == '') this.errors.push('Tên không được để trống');
-      if(this.objData.content[0].content == '') this.errors.push('Nội dung không được để trống');
+      // if(this.objData.content[0].content == '') this.errors.push('Nội dung không được để trống');
       if(this.objData.images.length == 0) this.errors.push('Vui lòng chọn ảnh');
       if (this.errors.length > 0) {
         this.errors.forEach((value, key) => {

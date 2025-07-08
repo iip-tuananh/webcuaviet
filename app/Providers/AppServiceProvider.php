@@ -14,6 +14,7 @@ use App\models\product\Category;
 use App\models\language\Language;
 use App\models\blog\BlogCategory;
 use App\models\ServiceCate;
+use App\models\website\Video;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
             $language_current = Session::get('locale');
             $setting = Setting::first();
             $lang = Language::get();
+            $video = Video::where('status', 1)->orderBy('id', 'DESC')->get();
             $pageContent = PageContent::where(['language' => $language_current, 'status' => 1])->get();
             $categoryhome = Category::with([
                 'typeCate' => function ($query) {
@@ -79,6 +81,7 @@ class AppServiceProvider extends ServiceProvider
                 'blogCate' => $blogCate,
                 'servicehome' => $servicehome,
                 'hotrokhachhang' => $hotrokhachhang,
+                'video' => $video,
             ]);
         });
     }
